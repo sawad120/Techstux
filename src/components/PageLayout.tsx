@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Services", href: "/#services" },
   { label: "How It Works", href: "/#process" },
   { label: "Careers", href: "/careers" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "FAQ", href: "/#faq" },
 ];
 
@@ -124,7 +125,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
           <div className="border-t border-neutral-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white tracking-wide">© 2026 Techstux. All rights reserved.</p>
             <div className="flex gap-5">
-              <Link href="/privacy" className="text-xs text-white hover:text-white/80 transition-colors">
+              <Link href="/privacy-policy" className="text-xs text-white hover:text-white/80 transition-colors">
                 Privacy Policy
               </Link>
             </div>
