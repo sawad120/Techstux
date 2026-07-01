@@ -244,7 +244,7 @@ export default function Home() {
                 <p><strong className="text-neutral-300">Payments:</strong> Project pricing is agreed in writing before commencement. A deposit may be required.</p>
                 <p><strong className="text-neutral-300">Limitation of Liability:</strong> Techstux is not liable for indirect, incidental, or consequential damages arising from use of our services.</p>
                 <p><strong className="text-neutral-300">Governing Law:</strong> These terms are governed by applicable Indian law.</p>
-                <p>For questions, contact hello@techstux.com.</p>
+                <p>For questions, contact techstuxworks@gmail.com.</p>
               </div>
             </motion.div>
           </motion.div>
@@ -317,14 +317,14 @@ export default function Home() {
             <span className="w-8 h-px bg-neutral-700" />
           </motion.p>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.2rem] font-extrabold leading-[1.06] tracking-tight mb-6"
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] font-extrabold leading-[1.06] tracking-tight mb-6 flex flex-wrap justify-center gap-x-3 gap-y-2"
             style={SYNE}>
             {["Bridging", "Education", "&", "Industry."].map((word, i) => (
               <motion.span key={word}
                 initial={{ opacity: 0, y: 60, rotateX: -30 }}
                 animate={{ opacity: 1, y: 0, rotateX: 0 }}
                 transition={{ delay: 0.5 + i * 0.12, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                className={`inline-block mr-4 ${i >= 2 ? "text-neutral-400" : "text-white"}`}>
+                className={i >= 2 ? "text-neutral-400" : "text-white"}>
                 {word}
               </motion.span>
             ))}
@@ -486,14 +486,13 @@ export default function Home() {
       <section id="process" className="py-24 px-6 lg:px-10 bg-[#0e0e0e]">
         <div className="max-w-7xl mx-auto">
           <SectionHeader eyebrow="How It Works" title="The Process." />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative max-w-4xl mx-auto">
             <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 0.4 }}
               className="hidden md:block absolute top-12 left-[25%] right-[25%] h-px bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 origin-left" />
             {[
               { num: "01", title: "Strict Vetting", desc: "Every student passes a rigorous technical and professional screening before being assigned to any project." },
               { num: "02", title: "Expert Mentorship", desc: "Senior professionals guide, review, and quality-check all deliverables at every stage of the project." },
-              { num: "03", title: "Perfect Delivery", desc: "On-time, on-spec delivery with full handoff documentation and post-delivery support included." },
             ].map((s, i) => (
               <motion.div key={s.num}
                 initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }}
@@ -514,15 +513,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-neutral-800/40 border border-neutral-800/40 rounded-2xl overflow-hidden">
-            <CountStat val={100} suffix="%" label="Vetted Talent" />
-            <CountStat val="48h" label="Avg. Kick-off" />
-            <CountStat val={3} suffix="×" label="Faster Than Hiring" />
-            <CountStat val="∞" label="Revision Rounds" />
-          </motion.div>
         </div>
       </section>
 
