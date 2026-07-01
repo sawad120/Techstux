@@ -151,6 +151,7 @@ export default function Home() {
   const [activeModal, setActiveModal] = useState<null | "terms">(null);
   const [waitlistEmail, setWaitlistEmail] = useState("");
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+  const [waitlistSending, setWaitlistSending] = useState(false);
   const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const cursorX = useMotionValue(-100), cursorY = useMotionValue(-100);
   const springCX = useSpring(cursorX, { stiffness: 120, damping: 18 });
@@ -538,7 +539,24 @@ export default function Home() {
               </motion.div>
             ) : (
               <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                onSubmit={(e) => { e.preventDefault(); if (waitlistEmail) setWaitlistSubmitted(true); }}
+                onSubmit={(e) => { 
+                  e.preventDefault(); 
+                  if (waitlistEmail) {
+                    setWaitlistSending(true);
+                    emailjs.send(
+                      EMAILJS_SERVICE_ID, 
+                      EMAILJS_TEMPLATE_ID, 
+                      { name: "Waitlist Request", email: waitlistEmail, message: "A new user wants to join the waitlist." }, 
+                      { publicKey: EMAILJS_PUBLIC_KEY }
+                    ).then(() => {
+                      setWaitlistSubmitted(true);
+                      setWaitlistSending(false);
+                    }).catch(err => {
+                      console.error("Waitlist error:", err);
+                      setWaitlistSending(false);
+                    });
+                  }
+                }}
                 className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <input type="email" required value={waitlistEmail}
@@ -547,10 +565,10 @@ export default function Home() {
                     className="w-full bg-[#181818] border border-neutral-800 text-sm text-white placeholder-neutral-700 px-5 py-3.5 rounded-full focus:outline-none focus:border-neutral-600 transition-colors"
                     style={MANROPE} />
                 </div>
-                <motion.button type="submit" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                  className="bg-white text-neutral-900 px-7 py-3.5 text-sm font-semibold rounded-full hover:bg-neutral-100 transition-colors shrink-0"
+                <motion.button type="submit" disabled={waitlistSending} whileHover={waitlistSending ? undefined : { scale: 1.03 }} whileTap={waitlistSending ? undefined : { scale: 0.97 }}
+                  className="bg-white text-neutral-900 px-7 py-3.5 text-sm font-semibold rounded-full hover:bg-neutral-100 transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={MANROPE}>
-                  Join Waitlist
+                  {waitlistSending ? "Joining..." : "Join Waitlist"}
                 </motion.button>
               </motion.form>
             )}
